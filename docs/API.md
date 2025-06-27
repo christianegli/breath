@@ -81,7 +81,7 @@ protocol TrainingEngineProtocol {
 
 ### ProgressCalculator
 
-Calculates user progress and performance metrics.
+Calculates user progress and performance metrics with safety-focused scoring.
 
 ```swift
 protocol ProgressCalculatorProtocol {
@@ -89,6 +89,12 @@ protocol ProgressCalculatorProtocol {
     func getProgressSummary(for period: TimePeriod) -> ProgressSummary
     func updateUserLevel() -> UserLevel
     func generateRecommendations() -> [TrainingRecommendation]
+    
+    // Gamification and Scoring
+    func calculatePersonalScore() -> PersonalScore
+    func updateStreaks() -> StreakInfo
+    func checkAchievements() -> [Achievement]
+    func getProgressGraphData(for period: TimePeriod) -> GraphData
 }
 ```
 
@@ -175,6 +181,84 @@ struct ProgressMetrics {
     let percentImprovement: Double
     let consistencyScore: Double
     let trend: ProgressTrend
+}
+```
+
+### PersonalScore
+
+```swift
+struct PersonalScore {
+    let totalScore: Int
+    let consistencyScore: Int      // Based on regular practice
+    let techniqueScore: Int        // Based on proper breathing form
+    let safetyScore: Int          // Based on safety compliance
+    let progressScore: Int        // Based on gradual improvement
+    let level: UserLevel
+    let nextLevelProgress: Double
+}
+```
+
+### StreakInfo
+
+```swift
+struct StreakInfo {
+    let currentStreak: Int
+    let longestStreak: Int
+    let streakType: StreakType
+    let nextMilestone: Int
+    let celebrateRestDay: Bool    // Celebrates mandatory rest days
+}
+
+enum StreakType {
+    case practice      // Consistent practice days
+    case safety        // Safety compliance streak
+    case technique     // Proper technique streak
+}
+```
+
+### Achievement
+
+```swift
+struct Achievement {
+    let id: UUID
+    let title: String
+    let description: String
+    let type: AchievementType
+    let unlockedDate: Date
+    let iconName: String
+    let shareableContent: ShareableContent?
+}
+
+enum AchievementType {
+    case consistency   // Regular practice achievements
+    case technique     // Breathing technique mastery
+    case safety        // Safety education completion
+    case milestone     // Progress milestones
+    case education     // Learning achievements
+}
+```
+
+### GraphData
+
+```swift
+struct GraphData {
+    let dataPoints: [DataPoint]
+    let chartType: ChartType
+    let timeRange: TimeRange
+    let safetyBoundaries: SafetyBoundaries
+}
+
+struct DataPoint {
+    let date: Date
+    let value: Double
+    let type: MetricType
+}
+
+enum MetricType {
+    case consistencyScore
+    case techniqueScore
+    case sessionCount
+    case safetyCompliance
 }
 ```
 
