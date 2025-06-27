@@ -601,3 +601,536 @@ enum TechniqueDifficulty: String, CaseIterable, Codable {
         }
     }
 }
+
+// MARK: - Default Training Programs
+
+extension TrainingProgram {
+    
+    /**
+     * Default training programs available in the app
+     * 
+     * SAFETY DESIGN: All programs have hard-coded safety limits and
+     * progressive difficulty that prioritizes safety over performance.
+     */
+    static let defaultPrograms: [TrainingProgram] = [
+        beginnerFoundation,
+        intermediateDevelopment,
+        advancedMastery
+    ]
+    
+    // Quick Start Program
+    static let quickStartProgram = TrainingProgram(
+        id: UUID(),
+        name: "Quick Start",
+        description: "5-minute introduction to breath training",
+        difficulty: .beginner,
+        totalSessions: 1,
+        sessionDuration: 300, // 5 minutes
+        maxHoldTime: 15, // 15 seconds max
+        preparationTime: 60, // 1 minute prep
+        recoveryTime: 30, // 30 second recovery
+        restPeriodDuration: 60, // 1 minute rest
+        roundsPerSession: 3,
+        progressionRules: ProgressionRules(
+            holdTimeIncrement: 2,
+            maxIncrementPerSession: 5,
+            safetyThresholds: SafetyThresholds(
+                maxConsecutiveSessions: 1,
+                minRestBetweenSessions: 3600, // 1 hour
+                maxDailyHolds: 5
+            )
+        )
+    )
+    
+    // Beginner Foundation Program
+    static let beginnerFoundation = TrainingProgram(
+        id: UUID(),
+        name: "Beginner Foundation",
+        description: "4-week program building safe breath control basics",
+        difficulty: .beginner,
+        totalSessions: 20,
+        sessionDuration: 900, // 15 minutes
+        maxHoldTime: 30, // 30 seconds max
+        preparationTime: 120, // 2 minutes prep
+        recoveryTime: 60, // 1 minute recovery
+        restPeriodDuration: 120, // 2 minutes rest
+        roundsPerSession: 5,
+        progressionRules: ProgressionRules(
+            holdTimeIncrement: 2,
+            maxIncrementPerSession: 5,
+            safetyThresholds: SafetyThresholds(
+                maxConsecutiveSessions: 2,
+                minRestBetweenSessions: 3600, // 1 hour
+                maxDailyHolds: 10
+            )
+        )
+    )
+    
+    // Intermediate Development Program
+    static let intermediateDevelopment = TrainingProgram(
+        id: UUID(),
+        name: "Intermediate Development",
+        description: "6-week program for developing advanced breath control",
+        difficulty: .intermediate,
+        totalSessions: 30,
+        sessionDuration: 1200, // 20 minutes
+        maxHoldTime: 60, // 1 minute max
+        preparationTime: 180, // 3 minutes prep
+        recoveryTime: 90, // 1.5 minutes recovery
+        restPeriodDuration: 180, // 3 minutes rest
+        roundsPerSession: 6,
+        progressionRules: ProgressionRules(
+            holdTimeIncrement: 3,
+            maxIncrementPerSession: 8,
+            safetyThresholds: SafetyThresholds(
+                maxConsecutiveSessions: 3,
+                minRestBetweenSessions: 3600, // 1 hour
+                maxDailyHolds: 15
+            )
+        )
+    )
+    
+    // Advanced Mastery Program
+    static let advancedMastery = TrainingProgram(
+        id: UUID(),
+        name: "Advanced Mastery",
+        description: "8-week program for expert breath control mastery",
+        difficulty: .advanced,
+        totalSessions: 40,
+        sessionDuration: 1800, // 30 minutes
+        maxHoldTime: 120, // 2 minutes max
+        preparationTime: 240, // 4 minutes prep
+        recoveryTime: 120, // 2 minutes recovery
+        restPeriodDuration: 240, // 4 minutes rest
+        roundsPerSession: 8,
+        progressionRules: ProgressionRules(
+            holdTimeIncrement: 5,
+            maxIncrementPerSession: 10,
+            safetyThresholds: SafetyThresholds(
+                maxConsecutiveSessions: 3,
+                minRestBetweenSessions: 7200, // 2 hours
+                maxDailyHolds: 20
+            )
+        )
+    )
+}
+
+// MARK: - Progress Tracking Models
+
+/**
+ * ProgressData: Comprehensive progress tracking data
+ * 
+ * PURPOSE: Contains all progress metrics, analytics, and insights
+ * for user progress visualization and gamification.
+ * 
+ * SAFETY DESIGN: All metrics prioritize safety compliance and
+ * consistency over maximum performance metrics.
+ */
+struct ProgressData: Codable {
+    let totalSessions: Int
+    let currentStreak: Int
+    let previousStreak: Int
+    let bestStreak: Int
+    let activeDays: Int
+    let restDays: Int
+    let safetyScore: Double
+    let consistencyRate: Double
+    let experienceLevel: UserExperienceLevel
+    let totalTrainingTime: TimeInterval
+    let averageHoldTime: TimeInterval
+    let longestSafeHold: TimeInterval
+    let averageSessionDuration: TimeInterval
+    
+    // Chart Data
+    let consistencyData: [ConsistencyDataPoint]
+    let progressTrendData: [ProgressDataPoint]
+    let sessionQualityData: [SessionQualityDataPoint]
+    
+    // Progress Analysis
+    let progressTrend: ProgressTrend
+    let safetyMetrics: SafetyMetrics
+    let personalizedInsights: [PersonalizedInsight]
+}
+
+/**
+ * ConsistencyDataPoint: Data point for consistency tracking
+ */
+struct ConsistencyDataPoint: Codable, Identifiable {
+    let id = UUID()
+    let date: Date
+    let sessionCount: Int
+    let qualityScore: Double
+    
+    private enum CodingKeys: String, CodingKey {
+        case date, sessionCount, qualityScore
+    }
+}
+
+/**
+ * ProgressDataPoint: Data point for progress trend analysis
+ */
+struct ProgressDataPoint: Codable, Identifiable {
+    let id = UUID()
+    let date: Date
+    let averageHoldTime: TimeInterval
+    let safetyScore: Double
+    let consistencyScore: Double
+    
+    private enum CodingKeys: String, CodingKey {
+        case date, averageHoldTime, safetyScore, consistencyScore
+    }
+}
+
+/**
+ * SessionQualityDataPoint: Data point for session quality tracking
+ */
+struct SessionQualityDataPoint: Codable, Identifiable {
+    let id = UUID()
+    let date: Date
+    let duration: TimeInterval
+    let qualityScore: Double
+    let safetyCompliance: Double
+    
+    private enum CodingKeys: String, CodingKey {
+        case date, duration, qualityScore, safetyCompliance
+    }
+}
+
+/**
+ * ProgressTrend: Overall progress trend analysis
+ */
+enum ProgressTrend: String, Codable {
+    case improving = "improving"
+    case stable = "stable"
+    case needsAttention = "needsAttention"
+    
+    var displayName: String {
+        switch self {
+        case .improving: return "Improving"
+        case .stable: return "Stable"
+        case .needsAttention: return "Needs Attention"
+        }
+    }
+}
+
+/**
+ * SafetyMetrics: Detailed safety compliance metrics
+ */
+struct SafetyMetrics: Codable {
+    let holdLimitsCompliance: Double
+    let restPeriodsCompliance: Double
+    let emergencyStopsAvoidance: Double
+    let sessionSpacingCompliance: Double
+    let overallSafetyScore: Double
+}
+
+/**
+ * PersonalizedInsight: AI-generated insights for user improvement
+ */
+struct PersonalizedInsight: Codable, Identifiable {
+    let id = UUID()
+    let title: String
+    let description: String
+    let category: InsightCategory
+    let priority: InsightPriority
+    let actionable: Bool
+    let iconName: String
+    let color: String // Color name for SwiftUI
+    
+    private enum CodingKeys: String, CodingKey {
+        case title, description, category, priority, actionable, iconName, color
+    }
+}
+
+/**
+ * InsightCategory: Categories for personalized insights
+ */
+enum InsightCategory: String, CaseIterable, Codable {
+    case consistency = "consistency"
+    case safety = "safety"
+    case technique = "technique"
+    case motivation = "motivation"
+    case health = "health"
+    
+    var displayName: String {
+        switch self {
+        case .consistency: return "Consistency"
+        case .safety: return "Safety"
+        case .technique: return "Technique"
+        case .motivation: return "Motivation"
+        case .health: return "Health"
+        }
+    }
+}
+
+/**
+ * InsightPriority: Priority levels for insights
+ */
+enum InsightPriority: String, CaseIterable, Codable {
+    case low = "low"
+    case medium = "medium"
+    case high = "high"
+    case critical = "critical"
+    
+    var displayName: String {
+        switch self {
+        case .low: return "Low"
+        case .medium: return "Medium"
+        case .high: return "High"
+        case .critical: return "Critical"
+        }
+    }
+}
+
+/**
+ * UserExperienceLevel: User's current experience level
+ */
+enum UserExperienceLevel: String, CaseIterable, Codable {
+    case beginner = "beginner"
+    case novice = "novice"
+    case intermediate = "intermediate"
+    case advanced = "advanced"
+    case expert = "expert"
+    
+    var displayName: String {
+        switch self {
+        case .beginner: return "Beginner"
+        case .novice: return "Novice"
+        case .intermediate: return "Intermediate"
+        case .advanced: return "Advanced"
+        case .expert: return "Expert"
+        }
+    }
+    
+    var experiencePoints: Int {
+        switch self {
+        case .beginner: return 0
+        case .novice: return 100
+        case .intermediate: return 300
+        case .advanced: return 750
+        case .expert: return 1500
+        }
+    }
+}
+
+// MARK: - Achievement System Models
+
+/**
+ * Achievement: Individual achievement definition
+ * 
+ * SAFETY DESIGN: All achievements focus on safety compliance,
+ * consistency, and proper technique rather than maximum performance.
+ */
+struct Achievement: Identifiable, Codable {
+    let id: String
+    let name: String
+    let description: String
+    let iconName: String
+    let category: AchievementCategory
+    let difficulty: Int // 1-5 stars
+    let points: Int
+    let unlockCriteria: String
+    let isUnlocked: Bool
+    let unlockedDate: Date
+    let progress: Double // 0.0 to 1.0
+    let isRare: Bool
+    
+    // Static achievement definitions
+    static let allAchievements: [Achievement] = [
+        // Consistency Achievements
+        Achievement(
+            id: "first_session",
+            name: "First Steps",
+            description: "Complete your first breathing session with perfect safety compliance",
+            iconName: "lungs.fill",
+            category: .consistency,
+            difficulty: 1,
+            points: 10,
+            unlockCriteria: "Complete 1 breathing session",
+            isUnlocked: false,
+            unlockedDate: Date(),
+            progress: 0.0,
+            isRare: false
+        ),
+        
+        Achievement(
+            id: "week_streak",
+            name: "Weekly Warrior",
+            description: "Maintain a 7-day practice streak with proper rest days",
+            iconName: "flame.fill",
+            category: .consistency,
+            difficulty: 2,
+            points: 50,
+            unlockCriteria: "Complete 7 consecutive days of practice",
+            isUnlocked: false,
+            unlockedDate: Date(),
+            progress: 0.0,
+            isRare: false
+        ),
+        
+        Achievement(
+            id: "month_streak",
+            name: "Monthly Master",
+            description: "Achieve a 30-day practice streak with excellent consistency",
+            iconName: "calendar.badge.checkmark",
+            category: .consistency,
+            difficulty: 4,
+            points: 200,
+            unlockCriteria: "Complete 30 consecutive days of practice",
+            isUnlocked: false,
+            unlockedDate: Date(),
+            progress: 0.0,
+            isRare: true
+        ),
+        
+        // Safety Achievements
+        Achievement(
+            id: "safety_perfect",
+            name: "Safety Champion",
+            description: "Maintain 100% safety compliance for 50 sessions",
+            iconName: "shield.checkered",
+            category: .safety,
+            difficulty: 3,
+            points: 100,
+            unlockCriteria: "Complete 50 sessions with perfect safety score",
+            isUnlocked: false,
+            unlockedDate: Date(),
+            progress: 0.0,
+            isRare: false
+        ),
+        
+        Achievement(
+            id: "emergency_avoided",
+            name: "Wisdom Guardian",
+            description: "Complete 100 sessions without any emergency stops",
+            iconName: "heart.circle.fill",
+            category: .safety,
+            difficulty: 3,
+            points: 150,
+            unlockCriteria: "Complete 100 sessions with no emergency stops",
+            isUnlocked: false,
+            unlockedDate: Date(),
+            progress: 0.0,
+            isRare: false
+        ),
+        
+        // Technique Achievements
+        Achievement(
+            id: "technique_master",
+            name: "Technique Master",
+            description: "Master all fundamental breathing techniques",
+            iconName: "star.fill",
+            category: .technique,
+            difficulty: 4,
+            points: 250,
+            unlockCriteria: "Complete tutorials for all breathing techniques",
+            isUnlocked: false,
+            unlockedDate: Date(),
+            progress: 0.0,
+            isRare: true
+        ),
+        
+        // Progress Achievements
+        Achievement(
+            id: "steady_progress",
+            name: "Steady Progress",
+            description: "Show consistent improvement over 4 weeks",
+            iconName: "chart.line.uptrend.xyaxis",
+            category: .progress,
+            difficulty: 3,
+            points: 75,
+            unlockCriteria: "Maintain positive progress trend for 4 weeks",
+            isUnlocked: false,
+            unlockedDate: Date(),
+            progress: 0.0,
+            isRare: false
+        ),
+        
+        // Education Achievements
+        Achievement(
+            id: "safety_scholar",
+            name: "Safety Scholar",
+            description: "Pass the comprehensive safety quiz with 100% score",
+            iconName: "graduationcap.fill",
+            category: .education,
+            difficulty: 2,
+            points: 40,
+            unlockCriteria: "Score 100% on safety quiz",
+            isUnlocked: false,
+            unlockedDate: Date(),
+            progress: 0.0,
+            isRare: false
+        )
+    ]
+}
+
+/**
+ * AchievementCategory: Categories for achievements
+ */
+enum AchievementCategory: String, CaseIterable, Codable {
+    case consistency = "consistency"
+    case safety = "safety"
+    case technique = "technique"
+    case progress = "progress"
+    case education = "education"
+    
+    var displayName: String {
+        switch self {
+        case .consistency: return "Consistency"
+        case .safety: return "Safety"
+        case .technique: return "Technique"
+        case .progress: return "Progress"
+        case .education: return "Education"
+        }
+    }
+    
+    var iconName: String {
+        switch self {
+        case .consistency: return "flame.fill"
+        case .safety: return "shield.checkered"
+        case .technique: return "star.fill"
+        case .progress: return "chart.line.uptrend.xyaxis"
+        case .education: return "graduationcap.fill"
+        }
+    }
+    
+    var color: String {
+        switch self {
+        case .consistency: return "orange"
+        case .safety: return "green"
+        case .technique: return "purple"
+        case .progress: return "blue"
+        case .education: return "yellow"
+        }
+    }
+}
+
+// MARK: - Color Extension for Achievement Categories
+
+extension AchievementCategory {
+    var swiftUIColor: Color {
+        switch self {
+        case .consistency: return .orange
+        case .safety: return .green
+        case .technique: return .purple
+        case .progress: return .blue
+        case .education: return .yellow
+        }
+    }
+}
+
+// MARK: - Color Extension for PersonalizedInsight
+
+extension PersonalizedInsight {
+    var swiftUIColor: Color {
+        switch color {
+        case "red": return .red
+        case "orange": return .orange
+        case "yellow": return .yellow
+        case "green": return .green
+        case "blue": return .blue
+        case "purple": return .purple
+        default: return .gray
+        }
+    }
+} 

@@ -399,16 +399,54 @@ struct ProgramCard: View {
 }
 
 /**
- * ProgressOverviewSection: Quick progress overview
+ * ProgressOverviewSection: Quick progress overview with navigation to detailed progress
  */
 struct ProgressOverviewSection: View {
+    @State private var showingProgressTracking = false
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text("Progress Overview")
                 .font(.headline)
             
+            // Quick stats overview
+            LazyVGrid(columns: [
+                GridItem(.flexible()),
+                GridItem(.flexible())
+            ], spacing: 12) {
+                
+                ProgressQuickStat(
+                    title: "Current Streak",
+                    value: "3 days",
+                    icon: "flame.fill",
+                    color: .orange
+                )
+                
+                ProgressQuickStat(
+                    title: "Total Sessions",
+                    value: "12",
+                    icon: "lungs.fill",
+                    color: .blue
+                )
+                
+                ProgressQuickStat(
+                    title: "Safety Score",
+                    value: "100%",
+                    icon: "shield.checkered",
+                    color: .green
+                )
+                
+                ProgressQuickStat(
+                    title: "Experience",
+                    value: "Beginner",
+                    icon: "star.fill",
+                    color: .purple
+                )
+            }
+            
+            // Detailed progress button
             Button(action: {
-                // Navigate to detailed progress
+                showingProgressTracking = true
             }) {
                 HStack {
                     VStack(alignment: .leading, spacing: 8) {
@@ -416,7 +454,7 @@ struct ProgressOverviewSection: View {
                             .font(.body)
                             .foregroundColor(.primary)
                         
-                        Text("Track your improvement and consistency")
+                        Text("Charts, achievements, and insights")
                             .font(.caption)
                             .foregroundColor(.secondary)
                     }
@@ -433,6 +471,40 @@ struct ProgressOverviewSection: View {
             }
             .buttonStyle(PlainButtonStyle())
         }
+        .sheet(isPresented: $showingProgressTracking) {
+            ProgressTrackingView()
+        }
+    }
+}
+
+/**
+ * ProgressQuickStat: Quick stat display card
+ */
+struct ProgressQuickStat: View {
+    let title: String
+    let value: String
+    let icon: String
+    let color: Color
+    
+    var body: some View {
+        VStack(spacing: 8) {
+            Image(systemName: icon)
+                .font(.title2)
+                .foregroundColor(color)
+            
+            Text(value)
+                .font(.headline)
+                .fontWeight(.bold)
+            
+            Text(title)
+                .font(.caption)
+                .foregroundColor(.secondary)
+                .multilineTextAlignment(.center)
+        }
+        .padding(.vertical, 12)
+        .padding(.horizontal, 8)
+        .background(Color(.systemGray6))
+        .cornerRadius(8)
     }
 }
 
