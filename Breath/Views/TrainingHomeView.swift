@@ -220,6 +220,9 @@ struct SafetyStatusRow: View {
  * QuickTrainingSection: Quick access to basic training exercises
  */
 struct QuickTrainingSection: View {
+    @State private var showingBreathingTechniques = false
+    @State private var showingBreathingSession = false
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text("Quick Training")
@@ -231,23 +234,29 @@ struct QuickTrainingSection: View {
             ], spacing: 12) {
                 
                 QuickTrainingCard(
-                    title: "Box Breathing",
-                    subtitle: "4-4-4-4 pattern",
-                    icon: "square",
+                    title: "Learn Techniques",
+                    subtitle: "Master breathing basics",
+                    icon: "lungs.fill",
                     color: .blue
                 ) {
-                    // Navigate to box breathing
+                    showingBreathingTechniques = true
                 }
                 
                 QuickTrainingCard(
-                    title: "Diaphragmatic",
-                    subtitle: "Deep belly breathing",
-                    icon: "lungs",
+                    title: "Start Training",
+                    subtitle: "Begin breath hold session",
+                    icon: "play.circle.fill",
                     color: .green
                 ) {
-                    // Navigate to diaphragmatic breathing
+                    showingBreathingSession = true
                 }
             }
+        }
+        .sheet(isPresented: $showingBreathingTechniques) {
+            BreathingTechniquesView()
+        }
+        .sheet(isPresented: $showingBreathingSession) {
+            BreathingSessionView()
         }
     }
 }
@@ -529,4 +538,5 @@ extension UserLevel {
     TrainingHomeView()
         .environmentObject(AppState())
         .environmentObject(SafetyValidator())
+} 
 } 
