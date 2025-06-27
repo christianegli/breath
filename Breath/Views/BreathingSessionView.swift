@@ -1,74 +1,61 @@
 import SwiftUI
 
 /**
- * BreathingSessionView: Active breathing training session interface
+ * BreathingSessionView: Main breath training session interface
  * 
- * PURPOSE: Provides guided breathing training sessions with real-time
- * audio/visual cues and safety monitoring. This is where users perform
- * actual breath training exercises.
+ * PURPOSE: Provides guided breath-holding training sessions with comprehensive
+ * safety validation, real-time monitoring, and emergency stop functionality.
+ * This is the core training interface where users practice breath holds.
  * 
- * SAFETY DESIGN: Continuous safety monitoring during sessions with
- * automatic session termination if safety limits are exceeded.
- * 
- * NOTE: This is a placeholder implementation. Full implementation will
- * be completed in subsequent tasks with comprehensive safety features.
+ * SAFETY DESIGN: Every aspect prioritizes user safety with hard-coded limits,
+ * continuous monitoring, mandatory rest periods, and immediate emergency stops.
  */
 struct BreathingSessionView: View {
     
-    @EnvironmentObject var appState: AppState
+    // MARK: - Dependencies
+    
+    @StateObject private var trainingEngine = TrainingEngine()
+    @StateObject private var audioController = AudioController()
+    @StateObject private var dataStore = DataStore()
+    @EnvironmentObject private var safetyValidator: SafetyValidator
+    
+    // MARK: - State
+    
+    @State private var selectedProgram: TrainingProgram?
+    @State private var currentSession: TrainingSession?
+    @State private var sessionState: SessionState = .setup
+    @State private var showingProgramSelection = true
+    @State private var showingEmergencyStop = false
+    @State private var showingSessionComplete = false
+    @State private var emergencyStopReason: String = ""
+    
+    @Environment(\.dismiss) private var dismiss
+    
+    // MARK: - Body
     
     var body: some View {
-        VStack(spacing: 30) {
-            
-            Text("Breathing Session")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-            
-            Text("Active training session interface will be implemented here with:")
-                .font(.body)
-                .foregroundColor(.secondary)
-                .multilineTextAlignment(.center)
-            
-            VStack(alignment: .leading, spacing: 12) {
-                FeatureRow(text: "Real-time breathing guidance")
-                FeatureRow(text: "Audio and visual cues")
-                FeatureRow(text: "Safety monitoring and limits")
-                FeatureRow(text: "Session progress tracking")
-                FeatureRow(text: "Emergency stop functionality")
+        NavigationView {
+            ZStack {
+                backgroundGradient
+                
+                if showingProgramSelection {
+                    programSelectionView
+                } else {
+                    sessionView
+                }
             }
-            
-            Spacer()
-            
-            Button("Return to Training Home") {
-                appState.currentView = .trainingHome
-            }
-            .font(.headline)
-            .foregroundColor(.white)
-            .padding()
-            .background(Color.blue)
-            .cornerRadius(12)
-        }
-        .padding()
-        .navigationTitle("Session")
-        .navigationBarTitleDisplayMode(.inline)
-    }
-}
-
-struct FeatureRow: View {
-    let text: String
-    
-    var body: some View {
-        HStack {
-            Image(systemName: "checkmark.circle")
-                .foregroundColor(.green)
-            Text(text)
-                .font(.body)
-            Spacer()
-        }
-    }
-}
-
-#Preview {
-    BreathingSessionView()
-        .environmentObject(AppState())
-} 
+            .navigationTitle("Breath Training")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    if sessionState == .setup {
+                        Button("Close") { dismiss() }
+                    }
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    if sessionState != .setup {
+                        Button("Emergency Stop") {
+                            emergencyStop(reason: "User requested emergency stop")
+                        }
+             

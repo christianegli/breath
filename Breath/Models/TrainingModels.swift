@@ -600,4 +600,4 @@ enum TechniqueDifficulty: String, CaseIterable, Codable {
         case .advanced: return "Advanced"
         }
     }
-} 
+}
