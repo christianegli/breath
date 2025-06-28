@@ -1,165 +1,142 @@
 import SwiftUI
 
 /**
- * ContentView: Main navigation controller for the app
+ * ContentView: Main application interface
  * 
- * PURPOSE: Handles top-level navigation and ensures safety-first routing.
- * This view acts as the navigation coordinator, ensuring users cannot
- * access training features without completing mandatory safety education.
+ * RATIONALE: Simple welcome screen for MVP to test basic functionality.
+ * This will be expanded to include the full safety-first architecture
+ * and comprehensive breath training features in subsequent iterations.
  * 
- * SAFETY PRINCIPLE: All navigation decisions are based on safety validation
- * status. Users are automatically routed to safety education if not completed.
- * 
- * ARCHITECTURE: Uses SwiftUI's declarative navigation with state-driven
- * view selection for predictable and testable navigation flow.
+ * ARCHITECTURE DECISION: Starting with basic SwiftUI view to verify
+ * project setup works, then will add the complete safety education
+ * and training system we designed.
  */
 struct ContentView: View {
     
-    // MARK: - Environment Objects
-    
-    /**
-     * Global app state management
-     * 
-     * RATIONALE: Centralized state ensures consistent navigation behavior
-     * and prevents bypassing safety requirements.
-     */
-    @EnvironmentObject var appState: AppState
-    
-    /**
-     * Safety validation service
-     * 
-     * RATIONALE: Continuous safety validation ensures users cannot access
-     * unsafe features even if they attempt to bypass normal navigation.
-     */
-    @EnvironmentObject var safetyValidator: SafetyValidator
-    
-    // MARK: - View Body
-    
     var body: some View {
         NavigationView {
-            Group {
-                // Route to appropriate view based on app state and safety validation
-                switch appState.currentView {
-                case .launch:
-                    LaunchView()
-                case .safetyEducation:
-                    SafetyEducationView()
-                case .trainingHome:
-                    TrainingHomeView()
-                case .breathingSession:
-                    BreathingSessionView()
-                case .progressTracking:
-                    ProgressTrackingView()
+            VStack(spacing: 30) {
+                
+                // MARK: - App Header
+                VStack(spacing: 10) {
+                    Image(systemName: "lungs.fill")
+                        .font(.system(size: 60))
+                        .foregroundColor(.blue)
+                    
+                    Text("Breath Training")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                    
+                    Text("Safe & Effective Breath Hold Training")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
                 }
+                .padding(.top, 50)
+                
+                Spacer()
+                
+                // MARK: - Welcome Message
+                VStack(spacing: 20) {
+                    Text("Welcome to Your Breath Training Journey")
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                        .multilineTextAlignment(.center)
+                    
+                    Text("This app will help you safely improve your breath-holding capacity through scientifically-backed training methods.")
+                        .font(.body)
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal)
+                }
+                
+                Spacer()
+                
+                // MARK: - Action Buttons
+                VStack(spacing: 15) {
+                    Button(action: {
+                        // TODO: Navigate to safety education
+                        print("Safety Education - Coming Soon!")
+                    }) {
+                        HStack {
+                            Image(systemName: "shield.checkered")
+                            Text("Start with Safety Education")
+                        }
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.blue)
+                        .cornerRadius(12)
+                    }
+                    
+                    Button(action: {
+                        // TODO: Navigate to breathing techniques
+                        print("Breathing Techniques - Coming Soon!")
+                    }) {
+                        HStack {
+                            Image(systemName: "wind")
+                            Text("Learn Breathing Techniques")
+                        }
+                        .font(.headline)
+                        .foregroundColor(.blue)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.blue.opacity(0.1))
+                        .cornerRadius(12)
+                    }
+                    
+                    Button(action: {
+                        // TODO: Navigate to progress tracking
+                        print("Progress Tracking - Coming Soon!")
+                    }) {
+                        HStack {
+                            Image(systemName: "chart.line.uptrend.xyaxis")
+                            Text("View Progress")
+                        }
+                        .font(.headline)
+                        .foregroundColor(.blue)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.blue.opacity(0.1))
+                        .cornerRadius(12)
+                    }
+                }
+                .padding(.horizontal)
+                
+                Spacer()
+                
+                // MARK: - Safety Notice
+                VStack(spacing: 10) {
+                    HStack {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .foregroundColor(.orange)
+                        Text("Safety First")
+                            .font(.headline)
+                            .fontWeight(.semibold)
+                    }
+                    
+                    Text("Always complete safety education before training. Never practice breath-holding underwater or while driving.")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal)
+                }
+                .padding(.bottom, 30)
             }
             .navigationBarHidden(true)
-        }
-        .navigationViewStyle(StackNavigationViewStyle())
-        .onAppear {
-            validateAndRoute()
-        }
-        .onChange(of: appState.safetyEducationCompleted) { _ in
-            validateAndRoute()
-        }
-    }
-    
-    // MARK: - Private Methods
-    
-    /**
-     * Validate safety requirements and route appropriately
-     * 
-     * SAFETY DESIGN: This method ensures users are always routed to the
-     * appropriate view based on their safety education status. It prevents
-     * unsafe access by continuously validating requirements.
-     * 
-     * RATIONALE: Centralized routing logic makes it impossible to bypass
-     * safety requirements through direct navigation or state manipulation.
-     */
-    private func validateAndRoute() {
-        let validationResult = safetyValidator.validateUserCanTrain()
-        
-        switch validationResult {
-        case .safetyEducationRequired:
-            appState.navigateToSafetyEducation()
-        case .approved:
-            // User can access training features
-            if appState.currentView == .launch {
-                appState.navigateToTraining()
-            }
-        case .medicalRestriction:
-            // Route to medical disclaimer and restrictions
-            appState.navigateToSafetyEducation()
-        case .ageRestriction:
-            // Route to age verification and parental controls
-            appState.navigateToSafetyEducation()
         }
     }
 }
 
 /**
- * LaunchView: Initial app launch screen
+ * ContentView_Previews: SwiftUI preview provider
  * 
- * PURPOSE: Provides a brief launch experience while the app performs
- * safety validation and determines the appropriate initial view.
- * 
- * DESIGN: Minimal, clean interface with app branding and safety messaging.
+ * RATIONALE: Provides live preview for development and testing.
+ * Essential for rapid UI iteration and visual verification.
  */
-struct LaunchView: View {
-    @EnvironmentObject var appState: AppState
-    
-    var body: some View {
-        VStack(spacing: 30) {
-            
-            // App Logo and Branding
-            VStack(spacing: 16) {
-                Image(systemName: "lungs.fill")
-                    .font(.system(size: 80))
-                    .foregroundColor(.blue)
-                
-                Text("Breath")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .foregroundColor(.primary)
-                
-                Text("Safe Breath Training")
-                    .font(.title3)
-                    .foregroundColor(.secondary)
-            }
-            
-            // Safety-First Messaging
-            VStack(spacing: 12) {
-                Text("Safety First")
-                    .font(.headline)
-                    .foregroundColor(.primary)
-                
-                Text("Your safety is our top priority. We'll guide you through proper breathing techniques with comprehensive safety education.")
-                    .font(.body)
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal)
-            }
-            
-            // Loading Indicator
-            ProgressView()
-                .scaleEffect(1.2)
-                .padding(.top)
-        }
-        .padding()
-        .onAppear {
-            // Simulate brief launch delay for safety validation
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                if appState.safetyEducationCompleted {
-                    appState.navigateToTraining()
-                } else {
-                    appState.navigateToSafetyEducation()
-                }
-            }
-        }
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
     }
-}
-
-#Preview {
-    ContentView()
-        .environmentObject(AppState())
-        .environmentObject(SafetyValidator())
 } 
