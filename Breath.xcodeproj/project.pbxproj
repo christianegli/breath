@@ -10,6 +10,12 @@
 		A1000000000000000000001A /* BreathApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000001B /* BreathApp.swift */; };
 		A1000000000000000000001C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000001D /* ContentView.swift */; };
 		A1000000000000000000001E /* SafetyValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000001F /* SafetyValidator.swift */; };
+		A1000000000000000000002E /* SafetyEducationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000002F /* SafetyEducationView.swift */; };
+		A1000000000000000000003E /* SafetyQuizQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000003F /* SafetyQuizQuestion.swift */; };
+		A1000000000000000000004E /* SafetyEducationProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000004F /* SafetyEducationProgressView.swift */; };
+		A1000000000000000000005E /* SafetyEducationNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000005F /* SafetyEducationNavigationView.swift */; };
+		A1000000000000000000006E /* AgeVerificationStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000006F /* AgeVerificationStepView.swift */; };
+		A1000000000000000000007E /* TrainingHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000007F /* TrainingHomeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -17,6 +23,12 @@
 		A1000000000000000000001B /* BreathApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathApp.swift; sourceTree = "<group>"; };
 		A1000000000000000000001D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A1000000000000000000001F /* SafetyValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyValidator.swift; sourceTree = "<group>"; };
+		A1000000000000000000002F /* SafetyEducationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyEducationView.swift; sourceTree = "<group>"; };
+		A1000000000000000000003F /* SafetyQuizQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyQuizQuestion.swift; sourceTree = "<group>"; };
+		A1000000000000000000004F /* SafetyEducationProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyEducationProgressView.swift; sourceTree = "<group>"; };
+		A1000000000000000000005F /* SafetyEducationNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyEducationNavigationView.swift; sourceTree = "<group>"; };
+		A1000000000000000000006F /* AgeVerificationStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeVerificationStepView.swift; sourceTree = "<group>"; };
+		A1000000000000000000007F /* TrainingHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingHomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +48,8 @@
 				A1000000000000000000001B /* BreathApp.swift */,
 				A1000000000000000000001D /* ContentView.swift */,
 				A1000000000000000000003B /* Services */,
+				A1000000000000000000007A /* Views */,
+				A1000000000000000000008A /* Models */,
 			);
 			path = Breath;
 			sourceTree = "<group>";
@@ -46,6 +60,34 @@
 				A1000000000000000000001F /* SafetyValidator.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		A1000000000000000000007A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A1000000000000000000002F /* SafetyEducationView.swift */,
+				A1000000000000000000007F /* TrainingHomeView.swift */,
+				A1000000000000000000007B /* SafetyEducation */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A1000000000000000000007B /* SafetyEducation */ = {
+			isa = PBXGroup;
+			children = (
+				A1000000000000000000004F /* SafetyEducationProgressView.swift */,
+				A1000000000000000000005F /* SafetyEducationNavigationView.swift */,
+				A1000000000000000000006F /* AgeVerificationStepView.swift */,
+			);
+			path = SafetyEducation;
+			sourceTree = "<group>";
+		};
+		A1000000000000000000008A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A1000000000000000000003F /* SafetyQuizQuestion.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		A1000000000000000000003C = {
@@ -135,6 +177,12 @@
 				A1000000000000000000001C /* ContentView.swift in Sources */,
 				A1000000000000000000001A /* BreathApp.swift in Sources */,
 				A1000000000000000000001E /* SafetyValidator.swift in Sources */,
+				A1000000000000000000002E /* SafetyEducationView.swift in Sources */,
+				A1000000000000000000003E /* SafetyQuizQuestion.swift in Sources */,
+				A1000000000000000000004E /* SafetyEducationProgressView.swift in Sources */,
+				A1000000000000000000005E /* SafetyEducationNavigationView.swift in Sources */,
+				A1000000000000000000006E /* AgeVerificationStepView.swift in Sources */,
+				A1000000000000000000007E /* TrainingHomeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -291,6 +291,22 @@ class SafetyValidator: ObservableObject {
         validateCurrentStatus()
     }
     
+    /**
+     * Completes safety education with user information
+     * RATIONALE: Records completion with user details for ongoing validation
+     */
+    func completeSafetyEducation(age: Int, quizScore: Double) {
+        self.userAge = age
+        self.safetyQuizScore = quizScore
+        safetyEducationCompleted = true
+        ageVerified = true
+        safetyEducationDate = Date()
+        
+        // Save to persistent storage
+        saveSafetyStatus()
+        validateCurrentStatus()
+    }
+    
     // MARK: - Emergency Methods
     
     /**
