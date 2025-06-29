@@ -7,18 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A1234567890123456789012A /* BreathApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1234567890123456789012B /* BreathApp.swift */; };
-		A1234567890123456789012C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1234567890123456789012D /* ContentView.swift */; };
+		A1000000000000000000001A /* BreathApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000001B /* BreathApp.swift */; };
+		A1000000000000000000001C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000001D /* ContentView.swift */; };
+		A1000000000000000000001E /* SafetyValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000001F /* SafetyValidator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A1234567890123456789012E /* Breath.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Breath.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A1234567890123456789012B /* BreathApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathApp.swift; sourceTree = "<group>"; };
-		A1234567890123456789012D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		A1000000000000000000002A /* Breath.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Breath.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1000000000000000000001B /* BreathApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathApp.swift; sourceTree = "<group>"; };
+		A1000000000000000000001D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		A1000000000000000000001F /* SafetyValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyValidator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		A1234567890123456789012F /* Frameworks */ = {
+		A1000000000000000000002B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -28,27 +30,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A1234567890123456789013A /* Breath */ = {
+		A1000000000000000000003A /* Breath */ = {
 			isa = PBXGroup;
 			children = (
-				A1234567890123456789012B /* BreathApp.swift */,
-				A1234567890123456789012D /* ContentView.swift */,
+				A1000000000000000000001B /* BreathApp.swift */,
+				A1000000000000000000001D /* ContentView.swift */,
+				A1000000000000000000003B /* Services */,
 			);
 			path = Breath;
 			sourceTree = "<group>";
 		};
-		A1234567890123456789013B = {
+		A1000000000000000000003B /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				A1234567890123456789013A /* Breath */,
-				A1234567890123456789013C /* Products */,
+				A1000000000000000000001F /* SafetyValidator.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		A1000000000000000000003C = {
+			isa = PBXGroup;
+			children = (
+				A1000000000000000000003A /* Breath */,
+				A1000000000000000000003D /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		A1234567890123456789013C /* Products */ = {
+		A1000000000000000000003D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A1234567890123456789012E /* Breath.app */,
+				A1000000000000000000002A /* Breath.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -56,13 +67,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A1234567890123456789013D /* Breath */ = {
+		A1000000000000000000004A /* Breath */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A1234567890123456789013E /* Build configuration list for PBXNativeTarget "Breath" */;
+			buildConfigurationList = A1000000000000000000004B /* Build configuration list for PBXNativeTarget "Breath" */;
 			buildPhases = (
-				A1234567890123456789013F /* Sources */,
-				A1234567890123456789012F /* Frameworks */,
-				A1234567890123456789014A /* Resources */,
+				A1000000000000000000004C /* Sources */,
+				A1000000000000000000002B /* Frameworks */,
+				A1000000000000000000004D /* Resources */,
 			);
 			buildRules = (
 			);
@@ -70,25 +81,25 @@
 			);
 			name = Breath;
 			productName = Breath;
-			productReference = A1234567890123456789012E /* Breath.app */;
+			productReference = A1000000000000000000002A /* Breath.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		A1234567890123456789014B /* Project object */ = {
+		A1000000000000000000005A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
-					A1234567890123456789013D = {
+					A1000000000000000000004A = {
 						CreatedOnToolsVersion = 15.0;
 					};
 				};
 			};
-			buildConfigurationList = A1234567890123456789014C /* Build configuration list for PBXProject "Breath" */;
+			buildConfigurationList = A1000000000000000000005B /* Build configuration list for PBXProject "Breath" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -96,18 +107,18 @@
 				en,
 				Base,
 			);
-			mainGroup = A1234567890123456789013B;
-			productRefGroup = A1234567890123456789013C /* Products */;
+			mainGroup = A1000000000000000000003C;
+			productRefGroup = A1000000000000000000003D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A1234567890123456789013D /* Breath */,
+				A1000000000000000000004A /* Breath */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		A1234567890123456789014A /* Resources */ = {
+		A1000000000000000000004D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -117,19 +128,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		A1234567890123456789013F /* Sources */ = {
+		A1000000000000000000004C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1234567890123456789012C /* ContentView.swift in Sources */,
-				A1234567890123456789012A /* BreathApp.swift in Sources */,
+				A1000000000000000000001C /* ContentView.swift in Sources */,
+				A1000000000000000000001A /* BreathApp.swift in Sources */,
+				A1000000000000000000001E /* SafetyValidator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		A1234567890123456789014D /* Debug */ = {
+		A1000000000000000000006A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -192,7 +204,7 @@
 			};
 			name = Debug;
 		};
-		A1234567890123456789014E /* Release */ = {
+		A1000000000000000000006B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -248,7 +260,7 @@
 			};
 			name = Release;
 		};
-		A1234567890123456789014F /* Debug */ = {
+		A1000000000000000000006C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -276,7 +288,7 @@
 			};
 			name = Debug;
 		};
-		A1234567890123456789015A /* Release */ = {
+		A1000000000000000000006D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -307,25 +319,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A1234567890123456789013E /* Build configuration list for PBXNativeTarget "Breath" */ = {
+		A1000000000000000000005B /* Build configuration list for PBXProject "Breath" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A1234567890123456789014F /* Debug */,
-				A1234567890123456789015A /* Release */,
+				A1000000000000000000006A /* Debug */,
+				A1000000000000000000006B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A1234567890123456789014C /* Build configuration list for PBXProject "Breath" */ = {
+		A1000000000000000000004B /* Build configuration list for PBXNativeTarget "Breath" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A1234567890123456789014D /* Debug */,
-				A1234567890123456789014E /* Release */,
+				A1000000000000000000006C /* Debug */,
+				A1000000000000000000006D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = A1234567890123456789014B /* Project object */;
+	rootObject = A1000000000000000000005A /* Project object */;
 }
